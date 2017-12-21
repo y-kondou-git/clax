@@ -7,15 +7,15 @@ export default class MagicalStore {
   private state: {[key: string]: any} = {}
   public notifier = new Notifier
 
-  protected configure() {
+  constructor(private source: {[key: string]: any}) {
     this.configureState()
     this.configureAction()
   }
 
   private configureState() {
-    const stateKeys = _.difference(Object.getOwnPropertyNames(this), Object.getOwnPropertyNames(new MagicalStore))
+    const stateKeys = Object.keys(this.source)
     for (let stateKey of stateKeys) {
-      this.state[stateKey] = _.cloneDeep((this as any)[stateKey])
+      this.state[stateKey] = _.cloneDeep(this.source[stateKey])
 
       Object.defineProperty(this, stateKey, {
         get: () => this.state[stateKey],
@@ -27,20 +27,16 @@ export default class MagicalStore {
   }
 
   private configureAction() {
-    const actionNames = _.difference(
-      Object.getOwnPropertyNames(Object.getPrototypeOf(this)),
-      Object.getOwnPropertyNames(Object.getPrototypeOf({}))
-    )
+    const actionNames = Object.getOwnPropertyNames(Object.getPrototypeOf(this.source))
     for (let actionName of actionNames) {
-      const action = (this as any)[actionName]
-      const isSync = action.constructor.name !== 'AsyncFunction'
-      const clonedAction = action.bind(this)
+      const action = this.source[actionName].bind(this)
+      const isSync = action.constructor.name !== 'AsyncFunction';
 
       (this as any)[actionName] = function(...args: any[]) {
         console.log(
           'clax',
           `${isSync ? 'sync' : 'async'} action invoked`,
-          `${this.constructor.name}#${actionName}(${args.join(', ')})`
+          `${this.source.constructor.name}#${actionName}(${args.join(', ')})`
         )
 
         let oldState
@@ -48,7 +44,7 @@ export default class MagicalStore {
           oldState = _.cloneDeep(this.state)
         }
 
-        clonedAction(...args)
+        action(...args)
 
         if (isSync) {
           const changes = diff(oldState, this.state)
@@ -56,7 +52,7 @@ export default class MagicalStore {
         }
 
         this.notifier.notify()
-      }
+      }.bind(this)
     }
   }
 }

@@ -1,10 +1,13 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
 module.exports = {
-  entry: [
-    './src/index.ts'
-  ],
+  entry: {
+    lib: './lib/index.ts',
+    counter: './examples/counter/index.ts'
+  },
   output: {
     path: __dirname + '/dist',
-    filename: 'bundle.js',
+    filename: '[name].js',
     library: 'clax',
     libraryTarget: 'umd'
   },
@@ -19,11 +22,25 @@ module.exports = {
         test: /\.ts$/,
         exclude: '/node_modules/',
         use: 'awesome-typescript-loader'
+      },
+      {
+        test: /\.pug$/,
+        exclude: /node_modules/,
+        use: 'pug-loader'
       }
     ]
   },
   resolve: {
     extensions: ['.js', '.ts']
   },
-  devtool: 'source-map'
+  devtool: 'source-map',
+  devServer: {
+    contentBase: './dist'
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './examples/counter/index.pug',
+      filename: 'counter.html'
+    })
+  ]
 }
