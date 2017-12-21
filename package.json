@@ -4,6 +4,7 @@
   "description": "A state management library focusing on to reduce learning cost",
   "main": "dist/index.js",
   "scripts": {
+    "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "webpack -p"
   },
@@ -35,6 +36,7 @@
     "source-map-loader": "^0.2.3",
     "ts-node": "^4.0.2",
     "typescript": "^2.6.2",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7"
   }
 }
