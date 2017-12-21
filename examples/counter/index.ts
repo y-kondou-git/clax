@@ -22,8 +22,6 @@ class CounterStore {
   }
 }
 
-const counterStore = new CounterStore
-
 
 interface PropTypes {
   counterStore: CounterStore
@@ -39,7 +37,7 @@ class Counter extends React.Component<PropTypes> {
   }
 }
 
-const ConnectedCounter = clax.connect(Counter, [counterStore])
+const ConnectedCounter = clax.connect(Counter, [CounterStore])
 
 
 ReactDOM.render(h(ConnectedCounter), document.querySelector('body > div'))
