@@ -5,6 +5,7 @@ import Notifier from './Notifier'
 
 export default class MagicalStore {
   private state: {[key: string]: any} = {}
+  private actionCallDepth = 0
   public notifier = new Notifier
 
   constructor(private source: {[key: string]: any}) {
@@ -42,14 +43,24 @@ export default class MagicalStore {
         let oldState
         if (isSync) {
           oldState = _.cloneDeep(this.state)
+          this.actionCallDepth += 1
         }
 
-        action(...args)
+        try {
+          action(...args)
+        } finally {
+          if (isSync) {
+            this.actionCallDepth -= 1
+          }
+        }
 
         if (isSync) {
           const changes = diff(oldState, this.state)
           console.log('clax', 'state changed', changes)
-          this.notifier.notify()
+
+          if (0 >= this.actionCallDepth) {
+            this.notifier.notify()
+          }
         }
       }.bind(this)
     }
