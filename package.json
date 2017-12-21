@@ -1,12 +1,12 @@
 {
-  "name": "clax",
-  "version": "0.1.0",
+  "name": "react-clax",
+  "version": "0.1.2",
   "description": "A state management library focusing on to reduce learning cost",
   "main": "dist/index.js",
   "scripts": {
     "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "webpack -p"
+    "prepublish": "tsc"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,13 @@
     "url": "https://github.com/tock203/clax/issues"
   },
   "homepage": "https://github.com/tock203/clax#readme",
+  "dependencies": {
+    "deep-diff": "^0.3.4",
+    "lodash": "^4.17.4",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-hyperscript": "^3.0.0"
+  },
   "devDependencies": {
     "@types/deep-diff": "0.0.31",
     "@types/lodash": "^4.14.91",
@@ -29,19 +36,14 @@
     "@types/react-dom": "^16.0.3",
     "@types/react-hyperscript": "^3.0.0",
     "awesome-typescript-loader": "^3.4.1",
-    "deep-diff": "^0.3.4",
     "html-webpack-plugin": "^2.30.1",
-    "lodash": "^4.17.4",
     "pug": "^2.0.0-rc.4",
     "pug-loader": "^2.3.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-hyperscript": "^3.0.0",
-    "rxjs": "^5.5.5",
     "source-map-loader": "^0.2.3",
     "ts-node": "^4.0.2",
     "typescript": "^2.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7"
-  }
+  },
+  "types": "./dist/index.d.ts"
 }

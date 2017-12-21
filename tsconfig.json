@@ -10,6 +10,10 @@
     "strictNullChecks": true,
     "noImplicitAny": true,
     "experimentalDecorators": true,
-    "outDir": "dist"
-  }
+    "outDir": "dist",
+    "declaration": true
+  },
+  "include": [
+    "lib/**/*.ts"
+  ]
 }

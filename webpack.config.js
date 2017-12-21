@@ -2,14 +2,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: {
-    lib: './lib/index.ts',
     counter: './examples/counter/index.ts'
   },
   output: {
     path: __dirname + '/dist',
-    filename: '[name].js',
-    library: 'clax',
-    libraryTarget: 'umd'
+    filename: '[name].js'
   },
   module: {
     rules: [
