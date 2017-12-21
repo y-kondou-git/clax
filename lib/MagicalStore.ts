@@ -42,7 +42,8 @@ export default class MagicalStore {
         console.debug(
           'clax:',
           `${isSync ? 'Sync' : 'Async'}ActionInvoked:`,
-          `${this.source.constructor.name}#${actionName}(${args.join(', ')})`
+          `${this.source.constructor.name}#${actionName}`,
+          args
         )
 
         let oldState
