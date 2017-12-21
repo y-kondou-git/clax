@@ -39,16 +39,21 @@ export default class MagicalStore {
       const isSync = action.constructor.name !== 'AsyncFunction';
 
       (this as any)[actionName] = function(...args: any[]) {
-        console.debug(
-          'clax:',
-          `${isSync ? 'Sync' : 'Async'}ActionInvoked:`,
-          `${this.source.constructor.name}#${actionName}`,
-          args
-        )
+        if (!isSync || 0 >= this.actionCallDepth) {
+          console.debug(
+            'clax:',
+            `${isSync ? 'Sync' : 'Async'}ActionInvoked:`,
+            `${this.source.constructor.name}#${actionName}`,
+            args
+          )
+        }
 
         let oldState
         if (isSync) {
-          oldState = _.cloneDeep(this.state)
+          if (0 >= this.actionCallDepth) {
+            oldState = _.cloneDeep(this.state)
+          }
+
           this.actionCallDepth += 1
         }
 
@@ -60,13 +65,11 @@ export default class MagicalStore {
           }
         }
 
-        if (isSync) {
+        if (isSync && 0 >= this.actionCallDepth) {
           const changes = diff(oldState, this.state)
           console.debug('clax:', 'StateChanged:', this.source.constructor.name, changes, StoreManager.getWholeState())
 
-          if (0 >= this.actionCallDepth) {
-            this.notifier.notify()
-          }
+          this.notifier.notify()
         }
       }.bind(this)
     }
