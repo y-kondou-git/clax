@@ -49,9 +49,8 @@ export default class MagicalStore {
         if (isSync) {
           const changes = diff(oldState, this.state)
           console.log('clax', 'state changed', changes)
+          this.notifier.notify()
         }
-
-        this.notifier.notify()
       }.bind(this)
     }
   }
