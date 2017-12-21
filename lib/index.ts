@@ -2,11 +2,11 @@ import * as React from 'react'
 import * as h from 'react-hyperscript'
 import * as _ from 'lodash'
 import MagicalStore from './MagicalStore'
-import storeFactory from './StoreFactory'
+import StoreManager from './StoreManager'
 
 
 export function connect(component: React.ComponentClass, storeSources: any[]): React.ComponentClass {
-  const magicalStores = storeSources.map(storeSource => storeFactory.castSpell(storeSource))
+  const magicalStores = storeSources.map(storeSource => StoreManager.makeStoreFrom(storeSource))
 
   const storeProps: {[key: string]: MagicalStore} = {}
   for (let [storeSource, magicalStore] of _.zip(storeSources, magicalStores)) {

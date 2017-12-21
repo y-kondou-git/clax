@@ -1,10 +1,10 @@
 import MagicalStore from './MagicalStore'
 
 
-class StoreFactory {
+export default new class StoreManager {
   private instances = new Map<any, MagicalStore>()
 
-  castSpell(storeSource: any): MagicalStore {
+  makeStoreFrom(storeSource: any): MagicalStore {
     let magicalStore = this.instances.get(storeSource)
     if (magicalStore !== undefined) {
       return magicalStore
@@ -15,5 +15,3 @@ class StoreFactory {
     return magicalStore
   }
 }
-
-export default new StoreFactory
