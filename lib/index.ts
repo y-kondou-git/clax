@@ -5,13 +5,13 @@ import MagicalStore from './MagicalStore'
 import StoreManager from './StoreManager'
 
 
-export function connect(component: React.ComponentClass, storeSources: any[]): React.ComponentClass {
-  const magicalStores = storeSources.map(storeSource => StoreManager.makeStoreFrom(storeSource))
+export function connect(component: React.ComponentClass, storeSourceClasses: any[]): React.ComponentClass {
+  const magicalStores = storeSourceClasses.map(storeSourceClass => StoreManager.makeStoreFrom(storeSourceClass))
 
   const storeProps: {[key: string]: MagicalStore} = {}
-  for (let [storeSource, magicalStore] of _.zip(storeSources, magicalStores)) {
+  for (let [storeSourceClass, magicalStore] of _.zip(storeSourceClasses, magicalStores)) {
     storeProps[
-      storeSource.constructor.name[0].toLowerCase() + storeSource.constructor.name.substring(1)
+      storeSourceClass.name[0].toLowerCase() + storeSourceClass.name.substring(1)
     ] = magicalStore
   }
 
