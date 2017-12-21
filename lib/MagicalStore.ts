@@ -61,7 +61,7 @@ export default class MagicalStore {
 
         if (isSync) {
           const changes = diff(oldState, this.state)
-          console.debug('clax:', 'StateChanged:', changes, StoreManager.getWholeState())
+          console.debug('clax:', 'StateChanged:', this.source.constructor.name, changes, StoreManager.getWholeState())
 
           if (0 >= this.actionCallDepth) {
             this.notifier.notify()
