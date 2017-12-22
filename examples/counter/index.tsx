@@ -1,6 +1,5 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import * as h from 'react-hyperscript'
 import * as clax from '../../lib/index'
 
 
@@ -29,15 +28,15 @@ interface PropTypes {
 
 class Counter extends React.Component<PropTypes> {
   render() {
-    return h('div', [
-      h('button', {onClick: () => this.props.counterStore.plus()}, '+'),
-      h('span', {onClick: () => this.props.counterStore.plus2()}, this.props.counterStore.count.toString()),
-      h('button', {onClick: () => this.props.counterStore.minus()}, '-')
-    ])
+    return <div>
+      <button onClick={() => this.props.counterStore.plus()}>+</button>
+      <span onClick={() => this.props.counterStore.plus2()}>{this.props.counterStore.count}</span>
+      <button onClick={() => this.props.counterStore.minus()}>-</button>
+    </div>
   }
 }
 
 const ConnectedCounter = clax.connect(Counter, [CounterStore])
 
 
-ReactDOM.render(h(ConnectedCounter), document.querySelector('body > div'))
+ReactDOM.render(<ConnectedCounter/>, document.querySelector('body > div'))

@@ -2,7 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: {
-    counter: './examples/counter/index.ts'
+    counter: './examples/counter/index.tsx'
   },
   output: {
     path: __dirname + '/dist',
@@ -16,7 +16,7 @@ module.exports = {
         use: 'source-map-loader'
       },
       {
-        test: /\.ts$/,
+        test: /\.tsx?$/,
         exclude: '/node_modules/',
         use: 'awesome-typescript-loader'
       },
@@ -28,7 +28,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.ts']
+    extensions: ['.js', '.ts', '.tsx']
   },
   devtool: 'source-map',
   devServer: {
