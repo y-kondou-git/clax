@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import * as clax from '../../lib/index'
+import * as clax from 'react-clax'
 
 
 class CounterStore {

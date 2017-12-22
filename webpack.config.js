@@ -28,7 +28,10 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.ts', '.tsx']
+    extensions: ['.js', '.ts', '.tsx'],
+    alias: {
+      'react-clax': __dirname + '/lib/index'
+    }
   },
   devtool: 'source-map',
   devServer: {
