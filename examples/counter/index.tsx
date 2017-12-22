@@ -10,14 +10,14 @@ class CounterStore {
     this.count += 1
   }
 
-  minus() {
-    this.count -= 1
+  minus(n: number) {
+    this.count -= n
   }
   
-  async plus2() {
+  async plusMinus() {
     this.plus()
     await new Promise(resolve => setTimeout(resolve, 1000))
-    this.plus()
+    this.minus(1)
   }
 }
 
@@ -29,9 +29,12 @@ interface PropTypes {
 class Counter extends React.Component<PropTypes> {
   render() {
     return <div>
-      <button onClick={() => this.props.counterStore.plus()}>+</button>
-      <span onClick={() => this.props.counterStore.plus2()}>{this.props.counterStore.count}</span>
-      <button onClick={() => this.props.counterStore.minus()}>-</button>
+      <div>
+        <button onClick={() => this.props.counterStore.plus()}>+</button>
+        <span>{this.props.counterStore.count}</span>
+        <button onClick={() => this.props.counterStore.minus(1)}>-</button>
+      </div>
+      <button onClick={() => this.props.counterStore.plusMinus()}>+1した一秒後に-1</button>
     </div>
   }
 }
