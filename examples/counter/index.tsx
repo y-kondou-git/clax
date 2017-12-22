@@ -13,7 +13,7 @@ class CounterStore {
   minus() {
     this.count -= 1
   }
-
+  
   async plus2() {
     this.plus()
     await new Promise(resolve => setTimeout(resolve, 1000))
