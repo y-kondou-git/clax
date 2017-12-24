@@ -1,6 +1,6 @@
 {
   "name": "react-clax",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A state management library focusing on to reduce learning cost",
   "main": "dist/index.js",
   "scripts": {
