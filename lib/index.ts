@@ -34,7 +34,7 @@ export function connect(component: React.ComponentClass, storeSourceClasses: any
     }
 
     render() {
-      return React.createElement(component, {...storeProps, ..._.omit(this.props, 'children')})
+      return React.createElement(component, {...storeProps, ..._.omit(this.props, 'children')}, this.props.children)
     }
 
     onStoreUpdate() {
