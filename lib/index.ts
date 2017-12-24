@@ -1,5 +1,4 @@
 import * as React from 'react'
-import * as h from 'react-hyperscript'
 import * as _ from 'lodash'
 import MagicalStore from './MagicalStore'
 import StoreManager from './StoreManager'
@@ -35,7 +34,7 @@ export function connect(component: React.ComponentClass, storeSourceClasses: any
     }
 
     render() {
-      return h(component, {...storeProps, ...this.props})
+      return React.createElement(component, {...storeProps, ..._.omit(this.props, 'children')})
     }
 
     onStoreUpdate() {
